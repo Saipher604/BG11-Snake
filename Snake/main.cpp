@@ -17,7 +17,7 @@ int main(int argc, char** argv) {
 	
  	
 	
-	int points, i, z, xb, yb, chance, color = 0, difficulty, b = 0, n = 16, food = 0,loop , x, y, x2[10000], y2[10000], key, hor = 40, ver = 12, dir = 4, phan = 0, check;
+	int points, i, z, xb, yb, chance, color = 0, difficulty, b = 0, n = 16, food = 0, fakefood = 0,loop , x, y, x2[10000], y2[10000], key, hor = 40, ver = 12, dir = 4, phan = 0, check;
 	
 	char Snake = 219, blank = 255, a = 132, horz = 196, verz = 179, ol = 218, orr = 191, ul = 192, ur = 217;
 	
@@ -101,14 +101,16 @@ int main(int argc, char** argv) {
 		
 		if(food == 0)
 		{
-			x = rand()%78 + 1;
+			x = rand()%78 + 1;									// position generation
 			y = rand()%23 + 1;
+			
+			/* double check */
 			
 			z = n;
 			for(i = 0; i <= z; i++)
 			{
 				
-		  		for(check = 0; check < 1;)
+		  		for(check = 0; check < 1;)						// check for same positon with snake body
 		  		{
 					if(x == x2[phan + n] && y == y2[phan + n])
 					{
@@ -116,7 +118,7 @@ int main(int argc, char** argv) {
 						y = rand()%23 + 1;
 						check = 0;
 					}
-					else
+					else										// if the position matches the snake a new one will be generated
 					 {
 					 	check = 2;
 					 }
@@ -125,10 +127,14 @@ int main(int argc, char** argv) {
 			}
 			n = z;
 			
+			/* double check end */
+			/* fake food generation 1/10 chance */
+			
 			chance = rand()%10;
 			
-			if(chance == 0 && difficulty <= 40000000)
+			if(chance == 0 && difficulty <= 40000000 && fakefood == 0)
 			{
+				
 				xb = rand()%78 + 1;
 				yb = rand()%23 + 1;
 				
@@ -158,8 +164,9 @@ int main(int argc, char** argv) {
 				}
 				n = z;
 				
-				gotoxy(xb, yb);
+				gotoxy(xb, yb);							// final placing of the food
 				std:: cout  << "+";
+				fakefood = 1;
 			}
 			
 			gotoxy(x, y);
@@ -171,10 +178,10 @@ int main(int argc, char** argv) {
 		
 		if(kbhit())
 		{
-			key = getch();
+			key = getch();							// key press regocnition
 		}
 		
-		if(key == 27)
+		if(key == 27)								// pause menu
 		{
 			system("COLOR 8F");
 			gotoxy(0, 0);
@@ -202,7 +209,7 @@ int main(int argc, char** argv) {
 		{
 			dir = 1;
 		}
-		if(key == 119 && dir != 1)
+		if(key == 119 && dir != 1)							// WASD change direction, != prevents the snake of going into itself (if going left, you cant go right)
 		{
 			dir = 2;
 		}
@@ -218,37 +225,41 @@ int main(int argc, char** argv) {
 		
 		switch (dir)
 		{
-			case 1:ver = ver + 1; if(ver == 24)ver = 1 ;;break;
+			case 1:ver = ver + 1; if(ver == 24)ver = 1 ;;break;			// horizontal 'hor' & vertical 'ver' calculation of the snakes  movement
 			case 2:ver = ver - 1; if(ver == 0 )ver = 23;;break;
 			case 3:hor = hor + 1; if(hor == 79)hor = 1 ;;break;
 			case 4:hor = hor - 1; if(hor == 0 )hor = 78;;break;
 		}
 		
+		/* food */
 		
-		if(x == hor && y ==ver)
+		if(x == hor && y ==ver)											// check if snake head has the same position as food
 		{
 			gotoxy(hor, ver);
-			std:: cout << "#";
+			std:: cout << "#";											// '#' eating animation
 			for(i = 0; i < difficulty; i++);
-			if(difficulty != 30000000)
+			
+			if(difficulty != 30000000)									// snake growth 'n' based on difficulty
 			n++;
 			else
 			{
 			n = n + 2;
 			}
-			food = 0;
+			food = 0;													// set food to eaten
 			
-			points = points + 20 + n;
+			points = points + 20 + n;									// points for eating
 			
-			if(xb != 0 && yb != 0)
+			if(fakefood == 1)											// if the "real" food has been eaten, fake food will be removed
 			{
 		 		gotoxy(xb, yb);
 				std:: cout << blank;
 		  		xb = 0;
 	   			yb = 0;
+	   			
+	   			fakefood = 0;
 			}
 		}
-		if(xb == hor && yb ==ver)
+		if(xb == hor && yb ==ver)										// if fakefood is being eaten, random decrease in points
 		{
 			gotoxy(hor, ver);
 			std:: cout << "#";
@@ -258,14 +269,18 @@ int main(int argc, char** argv) {
 			
 			xb = 0;
 			yb = 0;
+			
+			fakefood = 0;
 		}
+		
+		/* check for snake head intersection with body */
 		
 		z = n;
 		for(i = 0; i < z; i++)
 		{
 			
 			n--;
-			if(hor == x2[phan + n] && ver == y2[phan + n])
+			if(hor == x2[phan + n] && ver == y2[phan + n])				// intersection results in game over
 			{
 				system("COLOR 4F");
 				gotoxy(0, 0);
@@ -287,23 +302,28 @@ int main(int argc, char** argv) {
 		}
 		n = z;
 		
-		x2[phan + n] = hor;
-		y2[phan + n] = ver;
+		/* - */
 		
-		gotoxy(x2[phan], y2[phan]);
+		x2[phan + n] = hor;							//| save current head position to array
+		y2[phan + n] = ver;							//|
+		
+		gotoxy(x2[phan], y2[phan]);					// removing snakes tail for movement
 		std:: cout << blank;
 		
 		phan = phan + 1;
 		
-		gotoxy(hor, ver);
+		gotoxy(hor, ver);							// drawing next position of snake head
 		std:: cout << Snake;
 		
-		if(points < 500*(n - 15)/2 && difficulty != 50000000)
+		
+		if(points < 500*(n - 15)/2 && difficulty != 50000000)			// point limit for balancing
 		points++;
 		else if(points < 250*(n - 15)/2)
 		{
 			points++;
 		}
+		
+		/* drawing of map walls */
 		
 		for(i = b; i < 80; i++)
 		{
@@ -343,7 +363,9 @@ int main(int argc, char** argv) {
 		}
 		b = 81;
 		
-		for(i = 0; i < difficulty; i++);
+		/* - */
+		
+		for(i = 0; i < difficulty; i++);						// Wait for next game cycle, different based on difficulty
 	}
 	
 	return EXIT_FAILURE;
