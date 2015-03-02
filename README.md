@@ -1,4 +1,4 @@
 # BG11-Snake
 
 ------------------------
-Snake game
+Simple Snake game.
