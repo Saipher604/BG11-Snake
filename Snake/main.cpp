@@ -17,7 +17,7 @@ int main(int argc, char** argv) {
 	
  	
 	
-	int  xf, yf, food = 0,  xff, yff, fakefood = 0,  x2[10000], y2[10000],  hor = 40, ver = 12, points, i, z, chance, color = 0, difficulty, b = 0, n = 16, loop , key, dir = 4, phan = 0, check;
+	int  xf, yf, food = 0,  xff, yff, fakefood = 0,  x2[10000], y2[10000],  horP = 40, verP = 12, points, i, z, chance, color = 0, difficulty, b = 0, n = 16, loop , key, dir = 4, phan = 0, check;
 	
 	char Snake = 219, blank = 255, a = 132, horz = 196, verz = 179, ol = 218, orr = 191, ul = 192, ur = 217;
 	
@@ -225,17 +225,17 @@ int main(int argc, char** argv) {
 		
 		switch (dir)
 		{
-			case 1:ver = ver + 1; if(ver == 24)ver = 1 ;;break;			// horizontal 'hor' & vertical 'ver' calculation of the snakes  movement
-			case 2:ver = ver - 1; if(ver == 0 )ver = 23;;break;
-			case 3:hor = hor + 1; if(hor == 79)hor = 1 ;;break;
-			case 4:hor = hor - 1; if(hor == 0 )hor = 78;;break;
+			case 1:verP = verP + 1; if(verP == 24)verP = 1 ;;break;			// horizontal 'horP' & vertical 'verP' calculation of the snakes  movement
+			case 2:verP = verP - 1; if(verP == 0 )verP = 23;;break;
+			case 3:horP = horP + 1; if(horP == 79)horP = 1 ;;break;
+			case 4:horP = horP - 1; if(horP == 0 )horP = 78;;break;
 		}
 		
 		/* food */
 		
-		if(xf == hor && yf ==ver)											// check if snake head has the same position as food
+		if(xf == horP && yf ==verP)											// check if snake head has the same position as food
 		{
-			gotoxy(hor, ver);
+			gotoxy(horP, verP);
 			std:: cout << "#";											// '#' eating animation
 			for(i = 0; i < difficulty; i++);
 			
@@ -259,9 +259,9 @@ int main(int argc, char** argv) {
 	   			fakefood = 0;
 			}
 		}
-		if(xff == hor && yff ==ver)										// if fakefood is being eaten, random decrease in points
+		if(xff == horP && yff ==verP)										// if fakefood is being eaten, random decrease in points
 		{
-			gotoxy(hor, ver);
+			gotoxy(horP, verP);
 			std:: cout << "#";
 			for(i = 0; i < difficulty; i++);
 			
@@ -280,7 +280,7 @@ int main(int argc, char** argv) {
 		{
 			
 			n--;
-			if(hor == x2[phan + n] && ver == y2[phan + n])				// intersection results in game over
+			if(horP == x2[phan + n] && verP == y2[phan + n])				// intersection results in game over
 			{
 				system("COLOR 4F");
 				gotoxy(0, 0);
@@ -304,15 +304,15 @@ int main(int argc, char** argv) {
 		
 		/* - */
 		
-		x2[phan + n] = hor;							//| save current head position to array
-		y2[phan + n] = ver;							//|
+		x2[phan + n] = horP;							//| save current head position to array
+		y2[phan + n] = verP;							//|
 		
 		gotoxy(x2[phan], y2[phan]);					// removing snakes tail for movement
 		std:: cout << blank;
 		
 		phan = phan + 1;
 		
-		gotoxy(hor, ver);							// drawing next position of snake head
+		gotoxy(horP, verP);							// drawing next position of snake head
 		std:: cout << Snake;
 		
 		
