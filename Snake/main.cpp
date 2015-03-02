@@ -17,7 +17,7 @@ int main(int argc, char** argv) {
 	
  	
 	
-	int points, i, z, xb, yb, chance, color = 0, difficulty, b = 0, n = 16, food = 0, fakefood = 0,loop , x, y, x2[10000], y2[10000], key, hor = 40, ver = 12, dir = 4, phan = 0, check;
+	int  xf, yf, food = 0,  xff, yff, fakefood = 0,  x2[10000], y2[10000],  hor = 40, ver = 12, points, i, z, chance, color = 0, difficulty, b = 0, n = 16, loop , key, dir = 4, phan = 0, check;
 	
 	char Snake = 219, blank = 255, a = 132, horz = 196, verz = 179, ol = 218, orr = 191, ul = 192, ur = 217;
 	
@@ -101,8 +101,8 @@ int main(int argc, char** argv) {
 		
 		if(food == 0)
 		{
-			x = rand()%78 + 1;									// position generation
-			y = rand()%23 + 1;
+			xf = rand()%78 + 1;									// position generation
+			yf = rand()%23 + 1;
 			
 			/* double check */
 			
@@ -112,10 +112,10 @@ int main(int argc, char** argv) {
 				
 		  		for(check = 0; check < 1;)						// check for same positon with snake body
 		  		{
-					if(x == x2[phan + n] && y == y2[phan + n])
+					if(xf == x2[phan + n] && yf == y2[phan + n])
 					{
-						x = rand()%78 + 1;
-						y = rand()%23 + 1;
+						xf = rand()%78 + 1;
+						yf = rand()%23 + 1;
 						check = 0;
 					}
 					else										// if the position matches the snake a new one will be generated
@@ -135,8 +135,8 @@ int main(int argc, char** argv) {
 			if(chance == 0 && difficulty <= 40000000 && fakefood == 0)
 			{
 				
-				xb = rand()%78 + 1;
-				yb = rand()%23 + 1;
+				xff = rand()%78 + 1;
+				yff = rand()%23 + 1;
 				
 				z = n;
 				for(i = 0; i <= z; i++)
@@ -144,19 +144,19 @@ int main(int argc, char** argv) {
 					
 		  			for(check = 0; check < 1;)
 		  			{
-						if(xb == x2[phan + n] && yb == y2[phan + n] || xb == x && yb == y)
+						if(xff == x2[phan + n] && yff == y2[phan + n] || xff == xf && yff == yf)
 						{
-							xb = rand()%rand()%78 + 1;
-							yb = rand()%rand()%23 + 1;
+							xff = rand()%rand()%78 + 1;
+							yff = rand()%rand()%23 + 1;
 						}
-						if(xb != x2[phan + n] && yb != y2[phan + n] && xb != x && yb != y)
+						if(xff != x2[phan + n] && yff != y2[phan + n] && xff != xf && yff != yf)
 			  			{
 					 		check = 2;
 						}
 						else
 						{
-							xb = x2[phan + n];
-							yb = y2[phan + n];
+							xff = x2[phan + n];
+							yff = y2[phan + n];
 							check = 0;
 						}
 					}
@@ -164,12 +164,12 @@ int main(int argc, char** argv) {
 				}
 				n = z;
 				
-				gotoxy(xb, yb);							// final placing of the food
+				gotoxy(xff, yff);							// final placing of the food
 				std:: cout  << "+";
 				fakefood = 1;
 			}
 			
-			gotoxy(x, y);
+			gotoxy(xf, yf);
 			std:: cout  << "+";
 			food = 1;
 		}
@@ -233,7 +233,7 @@ int main(int argc, char** argv) {
 		
 		/* food */
 		
-		if(x == hor && y ==ver)											// check if snake head has the same position as food
+		if(xf == hor && yf ==ver)											// check if snake head has the same position as food
 		{
 			gotoxy(hor, ver);
 			std:: cout << "#";											// '#' eating animation
@@ -251,15 +251,15 @@ int main(int argc, char** argv) {
 			
 			if(fakefood == 1)											// if the "real" food has been eaten, fake food will be removed
 			{
-		 		gotoxy(xb, yb);
+		 		gotoxy(xff, yff);
 				std:: cout << blank;
-		  		xb = 0;
-	   			yb = 0;
+		  		xff = 0;
+	   			yff = 0;
 	   			
 	   			fakefood = 0;
 			}
 		}
-		if(xb == hor && yb ==ver)										// if fakefood is being eaten, random decrease in points
+		if(xff == hor && yff ==ver)										// if fakefood is being eaten, random decrease in points
 		{
 			gotoxy(hor, ver);
 			std:: cout << "#";
@@ -267,8 +267,8 @@ int main(int argc, char** argv) {
 			
 			points = points - (n - 13)*2 - rand()%500;
 			
-			xb = 0;
-			yb = 0;
+			xff = 0;
+			yff = 0;
 			
 			fakefood = 0;
 		}
