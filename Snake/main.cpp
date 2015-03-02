@@ -17,7 +17,7 @@ int main(int argc, char** argv) {
 	
  	
 	
-	int points, i, z, xb, yb, zufall, color = 0, difficulty, b = 0, n = 16, food = 0, restart , x, y, x2[10000], y2[10000], Taste, hor = 40, ver = 12, dir = 4, phan = 0, check;
+	int points, i, z, xb, yb, chance, color = 0, difficulty, b = 0, n = 16, food = 0,loop , x, y, x2[10000], y2[10000], key, hor = 40, ver = 12, dir = 4, phan = 0, check;
 	
 	char Snake = 219, blank = 255, a = 132, horz = 196, verz = 179, ol = 218, orr = 191, ul = 192, ur = 217;
 	
@@ -55,7 +55,7 @@ int main(int argc, char** argv) {
 	
 	for(z = 0; z < 300000000; z++);
 	
-	for(restart = 0; restart < 1; restart++)
+	for(loop = 0; loop < 1; loop++)
 	{
 		system("cls");
 		gotoxy(3, 19);
@@ -84,15 +84,15 @@ int main(int argc, char** argv) {
 		difficulty = 30000000;
  		if(z != 1 && z != 2 && z != 3)
 	 	{
-	 	 	restart = -1;
+	 	 	loop = -1;
 		}
 	}
 	
 	system("cls");
 	
-	/* SNAKE - Hauptprogram */
+	/* SNAKE - main application */
 	
-	for(restart = 1; restart == 1;)
+	for(loop = 1; loop == 1;)
 	{
 		gotoxy(0,0);
 		std:: cout << "Punkte:" << points << horz;
@@ -120,24 +120,14 @@ int main(int argc, char** argv) {
 					 {
 					 	check = 2;
 					 }
-			/*		if(x != x2[phan + n] && y != y2[phan + n])
-					{
-					check = 2;
-					}
-					else
-					{
-						x = x2[phan + n];
-						y = y2[phan + n];
-					 	check = 0;
-					}*/
 				}
 				n--;
 			}
 			n = z;
 			
-			zufall = rand()%10;
+			chance = rand()%10;
 			
-			if(zufall == 0 && difficulty <= 40000000)
+			if(chance == 0 && difficulty <= 40000000)
 			{
 				xb = rand()%78 + 1;
 				yb = rand()%23 + 1;
@@ -181,10 +171,10 @@ int main(int argc, char** argv) {
 		
 		if(kbhit())
 		{
-			Taste = getch();
+			key = getch();
 		}
 		
-		if(Taste == 27)
+		if(key == 27)
 		{
 			system("COLOR 8F");
 			gotoxy(0, 0);
@@ -192,8 +182,8 @@ int main(int argc, char** argv) {
 			for(i = 1;i == 1;)
 			{
 					
- 				_cscanf("%c", &Taste);
-				if(Taste == 27)
+ 				_cscanf("%c", &key);
+				if(key == 27)
 				return EXIT_SUCCESS;
 				else
 				{
@@ -208,19 +198,19 @@ int main(int argc, char** argv) {
   			}
 		}
 		
-		if(Taste == 115 && dir != 2)
+		if(key == 115 && dir != 2)
 		{
 			dir = 1;
 		}
-		if(Taste == 119 && dir != 1)
+		if(key == 119 && dir != 1)
 		{
 			dir = 2;
 		}
-		if(Taste == 100 && dir != 4)
+		if(key == 100 && dir != 4)
 		{
 			dir = 3;
 		}
-		if(Taste == 97  && dir != 3)
+		if(key == 97  && dir != 3)
 		{
 	 		dir = 4;
 		}
