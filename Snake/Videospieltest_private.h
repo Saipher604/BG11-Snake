@@ -5,19 +5,19 @@
 #define VIDEOSPIELTEST_PRIVATE_H
 
 /* VERSION DEFINITIONS */
-#define VER_STRING	"1.4.3.285"
+#define VER_STRING	"1.4.3.508"
 #define VER_MAJOR	1
 #define VER_MINOR	4
 #define VER_RELEASE	3
-#define VER_BUILD	285
+#define VER_BUILD	508
 #define COMPANY_NAME	"MauProductions"
-#define FILE_VERSION	"1.4.3.285"
+#define FILE_VERSION	"1.4.3.508"
 #define FILE_DESCRIPTION	"It's a Snake"
 #define INTERNAL_NAME	"project K‰sesoﬂe"
 #define LEGAL_COPYRIGHT	"(C) Mau"
 #define LEGAL_TRADEMARKS	"MauTrademarks"
 #define ORIGINAL_FILENAME	"Snake"
 #define PRODUCT_NAME	"SNAAAAAAKEEE!"
-#define PRODUCT_VERSION	"1.4.3.285"
+#define PRODUCT_VERSION	"1.4.3.508"
 
 #endif /*VIDEOSPIELTEST_PRIVATE_H*/
