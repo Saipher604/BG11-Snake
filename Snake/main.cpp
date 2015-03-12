@@ -59,7 +59,7 @@ int main(int argc, char** argv) {
 		gotoxy(65, 21);
 		std:: cout << "4 - links";
 		gotoxy(65, 22);
-		std:: cout << "5 - recht";
+		std:: cout << "6 - recht";
 		gotoxy(37, 7);
 		std:: cout << "SNAKE";
 		
