@@ -86,6 +86,7 @@ int main(int argc, char** argv) {
 		std:: cout << "D - rechts";
 		gotoxy(12, 23);
 		std:: cout << "Esc - Pause";
+		gotoxy(37.5, 7);
 		std:: cout << "SNAKE";
 		
 		gotoxy(23, 12);
