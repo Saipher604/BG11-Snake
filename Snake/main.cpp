@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <windows.h>
 #include <time.h>
+#include <unistd.h>
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
@@ -25,10 +26,21 @@ int main(int argc, char** argv) {
 	int  dir2 = 3, x2[10000], y2[10000], n2 = 16, horP2 = 40, verP2 = 7, esc;
 	
 	
-	int points, i, d, z = 0, chance, color = 0, difficulty, b = 0, loop , key, phan = 0, check;
+	int points, i, d, z = 0, chance, color = 0, difficulty, b = 0, loop = 1, key, phan = 0, check, nsave, n2save;
 	
 	
-	char Snake2 = 177, Snake = 219, blank = 255, a = 132, horz = 196, verz = 179, ol = 218, orr = 191, ul = 192, ur = 217;
+	// difficulty options
+	const int EASY = 100, MEDIUM = 80, HARD = 65;
+	// constants for Keys for better readability
+	const int UP = 4, DOWN = 3, LEFT = 2, RIGHT = 1, W = 97,A = 119, S = 100, D = 115, ESC = 27;
+	
+	const int NO = 0, YES = 1;
+	
+	
+	char Snake = 219, Snake2 = 177, blank = 255, ae /*ä*/ = 132;
+	
+	// ASCII-code for Arena lines
+	char horz = 196, verz = 179, ol = 218, orr = 191, ul = 192, ur = 217;
 	
 	
 	srand(time(NULL));
@@ -39,7 +51,7 @@ int main(int argc, char** argv) {
 	
 	Sleep(600);
 	
-	for(loop = 0; loop == 0; loop++)
+	while(loop == YES)
 	{
 		system("cls");
 		gotoxy(3, 19);
@@ -64,118 +76,107 @@ int main(int argc, char** argv) {
 		std:: cout << "SNAKE";
 		
 		gotoxy(23, 12);
-		std:: cout << "Schwierigkeitsgrad ausw" << a << "hlen [1|2|3] ";
+		std:: cout << "Schwierigkeitsgrad ausw" << ae << "hlen [1|2|3] ";
 		scanf("%d", &z);
 		fflush(stdin);
 		
 		if(z == 1)
-		difficulty = 100;
+		difficulty = EASY;
 		if(z == 2)
-		difficulty = 80;
+		difficulty = MEDIUM;
 		if(z == 3)
-		difficulty = 60;
- 		if(z != 1 && z != 2 && z != 3)
-	 	{
-	 	 	loop = -1;
-		}
+		difficulty = HARD;
+ 		if(z == 1 || z == 2 || z == 3)
+	 	 	loop = NO;
 	}
 	
+	loop = YES;
 	system("cls");
 	
 	/* SNAKE - main application */
 	
-	while(loop == 1)
+	while(loop == YES)
 	{
 		gotoxy(0,0);
 		std:: cout << "Punkte:" << points << horz;
 		
 		/* food generator start */
 		
-		if(food == 0)
+		if(food == NO)
 		{
 			xf = rand()%78 + 1;		// position generation
 			yf = rand()%23 + 1;
 			
 			/* double check */
 			
-			z = n;
+			nsave = n;
+			n2save = n2;
 			i = 0;
-			while(i <= z)
+			while(i - 1 <= nsave || i - 1 <= n2save)
 			{
+				i++;
 				
 				// check for identical position of food with Snake
-				check = 0;
-		  		while(check < 1)
-		  		{
-					if(xf == x[phan + n] && yf == y[phan + n] || xf == x2[phan + n2] && yf == y2[phan + n2])
-					{
-						xf = rand()%78 + 1;
-						yf = rand()%23 + 1;
-						check = 0;
-						i = 0;
-						n = z;
-					}
-					else				// if the position matches the snake a new one will be generated
-					 {
-					 	check = 2;
-					 }
-					 i++;
+				if(xf == x[phan + n] && yf == y[phan + n] || xf == x2[phan + n2] && yf == y2[phan + n2])
+				{
+					xf = rand()%78 + 1;
+					yf = rand()%23 + 1;
+					i = 0;
+					n = nsave;
+					n2 = n2save;
 				}
+									// if the position matches the snake a new one will be generated
 				n--;
+				n2--;
+				
 			}
-			n = z;
+			n = nsave;
+			n2 = n2save;
 			
 			/* double check end */
 			/* fake food generation 1/10 chance */
 			
 			chance = rand()%10;
 			
-			if(chance == 0 && difficulty <= 80 && fakefood == 0)
+			if(chance == 0 && difficulty <= 80 && fakefood == NO)
 			{
 				
 				xff = rand()%78 + 1;
 				yff = rand()%23 + 1;
 				
-				z = n;
+				nsave = n;
+				n2save = n2;
 				i = 0;
-				while(i <= z)
+				while(i - 1 <= nsave || i - 1 <= n2save)
 				{
-					check = 0;
-		  			while(check < 1)
-		  			{
-						if(xff == x[phan + n] && yff == y[phan + n] || xff == xf && yff == yf || xff == x2[phan + n2] && yff == y2[phan + n2])
-						{
-							xff = rand()%rand()%78 + 1;
-							yff = rand()%rand()%23 + 1;
-						}
-						if(xff != x[phan + n] && yff != y[phan + n] && xff != xf && yff != yf && xff != x2[phan + n2] && yff != y2[phan + n2])
-			  			{
-					 		check = 2;
-						}
-						else
-						{
-							xff = x[phan + n];
-							yff = y[phan + n];
-							check = 0;
-							i = 0;
-							n = z;
-						}
-						i++;
+					i++;
+					
+					if(xff == x[phan + n] && yff == y[phan + n] || xff == xf && yff == yf || xff == x2[phan + n2] && yff == y2[phan + n2])
+					{
+						xff = rand()%rand()%78 + 1;
+						yff = rand()%rand()%23 + 1;
+						
+						i = 0;
+						n = nsave;
+						n2 = n2save;
 					}
+					
 					n--;
+					n2--;
 				}
-				n = z;
+				n = nsave;
+				n2 = n2save;
 				
 				// final placing of the food
 				gotoxy(xff, yff);
 				std:: cout  << "+";
 				
-				fakefood = 1;
+				fakefood = YES;
 			}
 			
 			gotoxy(xf, yf);
 			std:: cout  << "+";
-			food = 1;
+			food = YES;
 		}
 		
 		/* food generator end */
@@ -187,14 +188,14 @@ int main(int argc, char** argv) {
 		}
 	 	
 	 	// pause menu
-		if(key == 27)
+		if(key == ESC)
 		{
 			system("COLOR 8F");
 			gotoxy(0, 0);
 			std:: cout << ol <<"!pausiert! - Esc zum beenden  Punkte:" << points;
  				_cscanf("%c", &key);
  				fflush(stdin);
-				if(key == 27)
+				if(key == ESC)
 				return EXIT_SUCCESS;
 				else
 				{
@@ -210,19 +211,21 @@ int main(int argc, char** argv) {
 	 	// check if relevant keys have been pressed
 		if(key == 115 || key == 119 || key == 100 || key == 97)
 		{
-			if(key == 115 && dir != 2)
-				dir = 1;
+			if(key == D && dir != LEFT)
+				dir = RIGHT;
 				
-			if(key == 119 && dir != 1)	
-				dir = 2;
+			if(key == A && dir != RIGHT)	
+				dir = LEFT;
 				
-			if(key == 100 && dir != 4)
-				dir = 3;
+			if(key == S && dir != UP)
+				dir = DOWN;
 				
-			if(key == 97  && dir != 3)
-	 			dir = 4;
+			if(key == 97  && dir != DOWN)
+	 			dir = UP;
 		}
-		else if(key == 56 || key == 53 || key == 52 || key == 54)
+		
+		
+		if(key == 56 || key == 53 || key == 52 || key == 54)
 		{
 			if(key == 53 && dir2 != 2)
 				dir2 = 1;
@@ -239,10 +242,10 @@ int main(int argc, char** argv) {
 		
 		switch (dir)
 		{
-			case 1:verP = verP + 1; if(verP == 24)verP = 1 ;;break;			// horizontal 'horP' & vertical 'verP' position calculation
-			case 2:verP = verP - 1; if(verP == 0 )verP = 23;;break;
-			case 3:horP = horP + 1; if(horP == 79)horP = 1 ;;break;
-			case 4:horP = horP - 1; if(horP == 0 )horP = 78;;break;
+			case RIGHT:verP = verP + 1; if(verP == 24)verP = 1 ;;break;			// horizontal 'horP' & vertical 'verP' position calculation
+			case LEFT :verP = verP - 1; if(verP == 0 )verP = 23;;break;
+			case DOWN :horP = horP + 1; if(horP == 79)horP = 1 ;;break;
+			case UP	  :horP = horP - 1; if(horP == 0 )horP = 78;;break;
 		}
 		
 		switch (dir2)
@@ -283,7 +286,7 @@ int main(int argc, char** argv) {
 			n2 = n2 + 2;
 			}
 			
-			food = 0;	// set food to eaten
+			food = NO;	// set food to eaten
 			
 			// points for eating
 			points = points + 20 + n;
@@ -296,7 +299,7 @@ int main(int argc, char** argv) {
 		  		xff = 0;
 	   			yff = 0;
 	   			
-	   			fakefood = 0;
+	   			fakefood = NO;
 			}
 		}
 		
@@ -310,7 +313,7 @@ int main(int argc, char** argv) {
 			xff = 0;
 			yff = 0;
 			
-			fakefood = 0;
+			fakefood = NO;
 		}
 		
 		/* check for snake head intersection with body */
@@ -448,7 +451,7 @@ int main(int argc, char** argv) {
 		
 		/* - */
 		
-		Sleep(difficulty);			// Wait for next game cycle, difficulty affects game speed
+		usleep(difficulty*1000);			// Wait for next game cycle, difficulty affects game speed
 	}
 	
 	return EXIT_FAILURE;
