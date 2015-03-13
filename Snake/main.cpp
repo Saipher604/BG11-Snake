@@ -24,7 +24,7 @@ int main(int argc, char** argv) {
 	int  dir = 4, x[10000], y[10000],  horP = 40, verP = 12, n = 16;
 	
 	
-	int points, i, d, z = 0, chance, color = 0, difficulty, b = 0, loop = 1, key, phan = 0, check, nsave;
+	int points, i, z = 0, chance, color = 0, difficulty, b = 0, loop = 1, key, phan = 0, check, nsave;
 	
 	
 	// difficulty options
@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
 	const int NO = 0, YES = 1;
 	
 	
-	char Snake = 219, blank = 255, ae /*Ã¤*/ = 132;
+	char Snake = 219, blank = 255, ae /*ä*/ = 132;
 	
 	// ASCII-code for Arena lines
 	char horz = 196, verz = 179, ol = 218, orr = 191, ul = 192, ur = 217;
@@ -44,8 +44,32 @@ int main(int argc, char** argv) {
 	srand(time(NULL));
 	
 	gotoxy(34, 12);
-	std:: cout << "Multiplayer - ALPHA";
+	std:: cout << "MauProductions";
 	
+	for(i = 0; i <= 21; i++)
+	{
+		switch(color)
+		{
+			case 0:system("COLOR 0"); ;break;
+			case 1:system("COLOR 1"); ;break;
+			case 2:system("COLOR 2"); ;break;
+			case 3:system("COLOR 3"); ;break;
+			case 4:system("COLOR 4"); ;break;
+			case 5:system("COLOR 5"); ;break;
+			case 6:system("COLOR 6"); ;break;
+			case 7:system("COLOR 7"); ;break;
+			case 8:system("COLOR 8"); ;break;
+			case 9:system("COLOR 9"); ;break;
+			default:system("COLOR F");;
+		}
+		
+	 	Sleep(70);
+		if(color < 10 && i <10)
+			color++;
+		
+		else
+			color--;
+	}
 	
 	Sleep(600);
 	
@@ -53,13 +77,13 @@ int main(int argc, char** argv) {
 	{
 		system("cls");
 		gotoxy(3, 19);
-		std:: cout << "Steuerung: W - hoch 56";
+		std:: cout << "Steuerung: W - hoch";
 		gotoxy(14, 20);
-		std:: cout << "S - runter 53";
+		std:: cout << "S - runter";
 		gotoxy(14, 21);
-		std:: cout << "A - links 52";
+		std:: cout << "A - links";
 		gotoxy(14, 22);
-		std:: cout << "D - rechts 54";
+		std:: cout << "D - rechts";
 		gotoxy(12, 23);
 		std:: cout << "Esc - Pause";
 		std:: cout << "SNAKE";
@@ -100,7 +124,7 @@ int main(int argc, char** argv) {
 			
 			nsave = n;
 			i = 0;
-			while(i - 1 <= nsave || i - 1 <= n2save)
+			while(i - 1 <= nsave)
 			{
 				i++;
 				
@@ -251,7 +275,10 @@ int main(int argc, char** argv) {
 		{
 			gotoxy(horP, verP);
 			std:: cout << "#";
-			for(i = 0; i < difficulty; i++);
+			Sleep(60);
+			
+			
+			points = points - (n - 13)*2 - rand()%500;
 			
 			xff = 0;
 			yff = 0;
@@ -262,7 +289,7 @@ int main(int argc, char** argv) {
 		/* check for snake head intersection with body */
 		
 		nsave = n;
-		for(i = 0; i < z; i++)
+		for(i = 0; i < nsave; i++)
 		{
 			n--;
 			if(horP == x[phan + n] && verP == y[phan + n])				// intersection results in game over
@@ -276,9 +303,9 @@ int main(int argc, char** argv) {
 	  				
 		  		  	std:: cout << horz;
 				}
-				gotoxy(15, 12);
+				gotoxy(35.5, 12);
 				std:: cout << "GAME OVER";
-				gotoxy(35, 15);
+				gotoxy(34, 15);
 				std:: cout << "Punkte: " << points;
 				Sleep(600);
 				getch();
