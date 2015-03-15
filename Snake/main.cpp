@@ -15,7 +15,9 @@ COORD pos = {x, y};
 SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
+
 int main(int argc, char** argv) {
+	
 	
 	// food variables
 	int  xf, yf, food = 0,  xff, yff, fakefood = 0;
@@ -28,20 +30,21 @@ int main(int argc, char** argv) {
 	
 	
 	// difficulty options
-	const int EASY = 100, MEDIUM = 80, HARD = 65;
+	const int EASY = 100, MEDIUM = 80, HARD = 70;
 	// constants for Keys for better readability
 	const int UP = 4, DOWN = 3, LEFT = 2, RIGHT = 1, W = 97,A = 119, S = 100, D = 115, ESC = 27;
 	
 	const int NO = 0, YES = 1;
 	
 	
-	char Snake = 219, blank = 255, ae /*ä*/ = 132;
+	char Snake = 219, blank = 255, ae /*ä*/ = 132, ue /*ü*/ = 129;
+	
+	char name[50];
 	
 	// ASCII-code for Arena lines
 	char horz = 196, verz = 179, ol = 218, orr = 191, ul = 192, ur = 217;
 	
-	
-	srand(time(NULL));
+	srand(getpid());
 	
 	gotoxy(34, 12);
 	std:: cout << "MauProductions";
@@ -89,6 +92,9 @@ int main(int argc, char** argv) {
 		gotoxy(37.5, 7);
 		std:: cout << "SNAKE";
 		
+		gotoxy(23, 13);
+		std:: cout << " [4] Highscores";
+		
 		gotoxy(23, 12);
 		std:: cout << "Schwierigkeitsgrad ausw" << ae << "hlen [1|2|3] ";
 		scanf("%d", &z);
@@ -102,6 +108,24 @@ int main(int argc, char** argv) {
 		difficulty = HARD;
  		if(z == 1 || z == 2 || z == 3)
 	 	 	loop = NO;
+	 	if(z == 4)
+	 	{
+	 		system("cls");
+	 		gotoxy(0, 0);
+	 		
+	 		FILE *file;
+				
+			file = fopen("Highscores.txt", "r");
+				
+			if (file)
+			{
+		 		while ((i = getc(file)) != EOF)
+        		putchar(i);
+    			fclose(file);
+			}
+			std:: cout << "zur" << ue << "ck mit beliebiger Taste";
+			getch();
+ 		}
 	}
 	
 	loop = YES;
@@ -162,8 +186,8 @@ int main(int argc, char** argv) {
 					
 					if(xff == x[phan + n] && yff == y[phan + n] || xff == xf && yff == yf)
 					{
-						xff = rand()%rand()%78 + 1;
-						yff = rand()%rand()%23 + 1;
+						xff = rand()%78 + 1;
+						yff = rand()%23 + 1;
 						
 						i = 0;
 						n = nsave;
@@ -202,7 +226,24 @@ int main(int argc, char** argv) {
  				_cscanf("%c", &key);
  				fflush(stdin);
 				if(key == ESC)
-				return EXIT_SUCCESS;
+				{
+					gotoxy(35, 12);
+					std:: cout << "Name: ";
+				
+					FILE *file;
+				
+					file = fopen("Highscores.txt", "a");
+				
+					fscanf(stdin, "%s", &name);
+				
+					fprintf(file, "%s", name);
+				
+					fprintf(file, " - %d\n\n", points);
+				
+					fclose(file);
+					
+					return EXIT_SUCCESS;
+				}
 				else
 				{
   				 	system("COLOR 0F");
@@ -309,7 +350,21 @@ int main(int argc, char** argv) {
 				gotoxy(34, 15);
 				std:: cout << "Punkte: " << points;
 				Sleep(600);
-				getch();
+				gotoxy(35, 17);
+				std:: cout << "Name: ";
+				
+				FILE *file;
+				
+				file = fopen("Highscores.txt", "a");
+				
+				fscanf(stdin, "%s", &name);
+				
+				fprintf(file, "%s", name);
+				
+				fprintf(file, " - %d\n\n", points);
+				
+				fclose(file);
+				
 				return EXIT_SUCCESS;
 			}
 		}
