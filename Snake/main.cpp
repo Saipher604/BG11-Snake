@@ -37,7 +37,7 @@ int main(int argc, char** argv) {
 	const int NO = 0, YES = 1;
 	
 	
-	char Snake = 219, blank = 255, ae /*ä*/ = 132, ue /*ü*/ = 129;
+	char Snake = 219, blank = 255, ae /*ä*/ = 132, ue /*ü*/ = 129, oe /*ö*/ = 148;
 	
 	char name[50];
 	
@@ -93,10 +93,11 @@ int main(int argc, char** argv) {
 		std:: cout << "SNAKE";
 		
 		gotoxy(23, 13);
-		std:: cout << " [4] Highscores";
+		std:: cout << "[4] Highscores";
 		
 		gotoxy(23, 12);
 		std:: cout << "Schwierigkeitsgrad ausw" << ae << "hlen [1|2|3] ";
+		
 		scanf("%d", &z);
 		fflush(stdin);
 		
@@ -120,11 +121,25 @@ int main(int argc, char** argv) {
 			if (file)
 			{
 		 		while ((i = getc(file)) != EOF)
-        		putchar(i);
+		 		{
+        			putchar(i);
+        			Sleep(10);
+        		}
     			fclose(file);
 			}
-			std:: cout << "zur" << ue << "ck mit beliebiger Taste";
-			getch();
+			std:: cout << "zur" << ue << "ck mit beliebiger Taste | [d] Highscores l" << oe << "schen\n";
+			
+			_cscanf("%c", &key);
+			fflush(stdin);
+			if(key == 100)
+			{
+   				if( remove( "Highscores.txt" ) != 0 )
+    				perror( "\n\nFehler beim Loeschen" );
+				else
+    				puts( "\n\nHighscores erfolgreich geloescht" );
+				getch();
+			}
+			z = 0;
  		}
 	}
 	
@@ -136,7 +151,7 @@ int main(int argc, char** argv) {
 	while(loop == YES)
 	{
 		gotoxy(0,0);
-		std:: cout << "Punkte:" << points << horz;
+		std:: cout << ol << "Punkte:" << points << horz;
 		
 		/* food generator start */
 		

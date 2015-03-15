@@ -33,20 +33,20 @@ UnitCount=1
 
 [VersionInfo]
 Major=1
-Minor=5
+Minor=6
 Release=3
-Build=441
+Build=487
 LanguageID=1031
 CharsetID=1252
 CompanyName=MauProductions
-FileVersion=1.5.3.441
+FileVersion=1.6.3.487
 FileDescription=It's a Snake
 InternalName=project K‰sesoﬂe
 LegalCopyright=(C) Mau
 LegalTrademarks=MauTrademarks
 OriginalFilename=Snake
 ProductName=SNAAAAAAKEEE!
-ProductVersion=1.5.3.441
+ProductVersion=1.6.3.487
 AutoIncBuildNr=1
 SyncProduct=1
 
