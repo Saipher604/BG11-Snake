@@ -39,7 +39,9 @@ int main(int argc, char** argv) {
 	
 	char Snake = 219, blank = 255, ae /*ä*/ = 132, ue /*ü*/ = 129, oe /*ö*/ = 148;
 	
-	char name[50];
+	char test = 240;
+	
+	char name[15] = {255,255,255,255,255,255,255,255,255,255,255,255,255,255,255};
 	
 	// ASCII-code for Arena lines
 	char horz = 196, verz = 179, ol = 218, orr = 191, ul = 192, ur = 217;
@@ -120,14 +122,20 @@ int main(int argc, char** argv) {
 				
 			if (file)
 			{
-		 		while ((i = getc(file)) != EOF)
+				z = 0;
+		 		while ((i = fgetc(file) + 10) - 10 != EOF)
 		 		{
         			putchar(i);
         			Sleep(10);
+        			z++;
+        			if(z == 22)
+        			{
+        				std:: cout << "\n\n";
+					}
         		}
     			fclose(file);
 			}
-			std:: cout << "zur" << ue << "ck mit beliebiger Taste | [d] Highscores l" << oe << "schen\n";
+			std:: cout << "\n\nzur" << ue << "ck mit beliebiger Taste | [d] Highscores l" << oe << "schen\n";
 			
 			_cscanf("%c", &key);
 			fflush(stdin);
@@ -251,9 +259,19 @@ int main(int argc, char** argv) {
 				
 					fscanf(stdin, "%s", &name);
 				
-					fprintf(file, "%s", name);
-				
-					fprintf(file, " - %d\n\n", points);
+					for(i = 0; i < 15; i++)
+			  			name[i] = name[i] - 10;
+					
+					char c[7] = {255,255,255,255,255,255,255};
+					
+					sprintf(c, "%d", points);
+					
+					for(i = 0; i < 7; i++) 
+					{
+				  		c[i] = c[i]-10;
+					}
+					
+					fprintf(file, "%s%s", name, c);
 				
 					fclose(file);
 					
@@ -374,10 +392,19 @@ int main(int argc, char** argv) {
 				
 				fscanf(stdin, "%s", &name);
 				
-				fprintf(file, "%s", name);
+				for(i = 0; i < 15; i++)
+			  		name[i] = name[i] - 10;
+					
+				char c[7] = {255,255,255,255,255,255,255};
+				sprintf(c, "%d", points);
 				
-				fprintf(file, " - %d\n\n", points);
+				for(i = 0; i < 7; i++) 
+				{
+			 		c[i] = c[i]-10;
+				}
 				
+				fprintf(file, "%s%s", name, c);
+			
 				fclose(file);
 				
 				return EXIT_SUCCESS;
