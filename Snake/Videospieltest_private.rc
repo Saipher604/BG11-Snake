@@ -10,8 +10,8 @@ A ICON "Videospieltest.ico"
 // TO CHANGE VERSION INFORMATION, EDIT PROJECT OPTIONS...
 //
 1 VERSIONINFO
-FILEVERSION 1,6,3,499
-PRODUCTVERSION 1,6,3,499
+FILEVERSION 1,7,5,752
+PRODUCTVERSION 1,7,5,752
 FILETYPE VFT_APP
 {
   BLOCK "StringFileInfo"
@@ -19,14 +19,14 @@ FILETYPE VFT_APP
     BLOCK "040704E4"
     {
       VALUE "CompanyName", "MauProductions"
-      VALUE "FileVersion", "1.6.3.499"
+      VALUE "FileVersion", "1.7.5.752"
       VALUE "FileDescription", "It's a Snake"
       VALUE "InternalName", "project K‰sesoﬂe"
       VALUE "LegalCopyright", "(C) Mau"
       VALUE "LegalTrademarks", "MauTrademarks"
       VALUE "OriginalFilename", "Snake"
       VALUE "ProductName", "SNAAAAAAKEEE!"
-      VALUE "ProductVersion", "1.6.3.499"
+      VALUE "ProductVersion", "1.7.5.752"
     }
   }
   BLOCK "VarFileInfo"
