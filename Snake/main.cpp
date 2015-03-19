@@ -58,7 +58,7 @@ int main(int argc, char** argv)
 		}
 
 	// randomization for food spawner
-	srand(getpid());
+	srand(_getpid());
 
 	// play simple intro
 	gotoxy(38, 12);
@@ -467,7 +467,7 @@ int main(int argc, char** argv)
 					points = points + 20 + ( n*1.5 );
 
 					// if the "real" food has been eaten, fake food will be removed
-					if(fakefood == 1)
+					if(fakefood == YES)
 						{
 							// overwrite visual fake food
 							gotoxy(xff, yff);
@@ -644,10 +644,8 @@ int main(int argc, char** argv)
 						}
 					key = 0;	// reset pressed key to avoid documentation of unnecessary key presses
 
-					// increase frame counter
-					fcounter++;
 				}
-
+				
 			// increase frame counter
 			fcounter++;
 
