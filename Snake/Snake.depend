@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1434731523 source:c:\users\saipher\documents\technik\snake\main.cpp
+	<iostream>
+	<conio.h>
+	<stdlib.h>
+	<stdio.h>
+	<windows.h>
+	<time.h>
+	<unistd.h>
+
